@@ -3,6 +3,7 @@ defmodule SchoolBackend.Application do
   # for more information on OTP Applications
   @moduledoc false
 
+  import Supervisor.Spec
   use Application
 
   def start(_type, _args) do
@@ -11,9 +12,10 @@ defmodule SchoolBackend.Application do
       # Start the Ecto repository
       SchoolBackend.Repo,
       # Start the endpoint when the application starts
-      SchoolBackendWeb.Endpoint
+      SchoolBackendWeb.Endpoint,
       # Starts a worker by calling: SchoolBackend.Worker.start_link(arg)
       # {SchoolBackend.Worker, arg},
+      worker(Guardian.DB.Token.SweeperServer, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

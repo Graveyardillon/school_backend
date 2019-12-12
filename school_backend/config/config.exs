@@ -28,3 +28,12 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :guardian, Guardian.DB,
+  repo: SchoolBackend.Repo,
+  schema_name: "guardian_tokens",
+  sweep_interval: 60 # default: 60 minutes
+
+config :school_backend, Schoolbackend.Functions.Guardian,
+  issuer: "school_backend",
+  secret_key: "JhK9gdcJp75SmExiVGVPz/3qAX54XcM9P0iTk3g+IYjAzigM60mdevCOLUm0ufzI"
